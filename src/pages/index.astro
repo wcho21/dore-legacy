@@ -7,7 +7,7 @@ let posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
 posts = sortPostsByDateInDecOrder(posts);
 ---
 <BaseLayout>
-  <h1>Astro</h1>
+  <h1>wlog</h1>
   <ul>
     {posts.map(post => (
     <li>
