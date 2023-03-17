@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/Base.astro";
 import { sortPostsByDateInDecOrder } from "@js/postSort.js";
+import { formatDate } from "@js/dateFormat.js";
 
 let posts = await Astro.glob("../pages/posts/**/*");
 posts = sortPostsByDateInDecOrder(posts);
@@ -13,7 +14,7 @@ const nextPost = posts[curIdx+1];
 <BaseLayout { title }>
   <div>
     <h1>{ title }</h1>
-    <p>Date: { date }</p>
+    <p>Date: { formatDate(new Date(date)) }</p>
     <slot />
   </div>
   <div>
