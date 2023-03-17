@@ -1,5 +1,17 @@
 ---
+const posts = await Astro.glob("../pages/posts/**/*");
+posts.sort((post1, post2) => {
+  const timestamp1 = new Date(post1.frontmatter.date);
+  const timestamp2 = new Date(post2.frontmatter.date);
+
+  // in decreasing order of timestamp; recent date first
+  return timestamp2 - timestamp1;
+});
+
 const { title, date } = Astro.props.frontmatter;
+const curIdx = posts.findIndex(post => post.frontmatter.date === date);
+const prevPost = posts[curIdx-1];
+const nextPost = posts[curIdx+1];
 ---
 
 <html lang="en">
@@ -11,8 +23,14 @@ const { title, date } = Astro.props.frontmatter;
     <title>{ title }</title>
   </head>
   <body>
-    <h1>{ title }</h1>
-    <p>Date: { date }</p>
-    <slot />
+    <div>
+      <h1>{ title }</h1>
+      <p>Date: { date }</p>
+      <slot />
+    </div>
+    <div>
+      { nextPost && <p>Next: <a href={nextPost.url}>{nextPost.frontmatter.title}</a></p> }
+      { prevPost && <p>Previous: <a href={prevPost.url}>{prevPost.frontmatter.title}</a></p> }
+    </div>
   </body>
 </html>
