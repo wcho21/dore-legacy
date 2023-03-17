@@ -1,6 +1,6 @@
 ---
 const posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
-import BaseLayout from "../layouts/Base.astro";
+import BaseLayout from "@layouts/Base.astro";
 
 posts.sort((post1, post2) => {
   const timestamp1 = new Date(post1.frontmatter.date);

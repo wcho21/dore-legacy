@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "./Base.astro";
+import BaseLayout from "@layouts/Base.astro";
 const posts = await Astro.glob("../pages/posts/**/*");
 posts.sort((post1, post2) => {
   const timestamp1 = new Date(post1.frontmatter.date);
