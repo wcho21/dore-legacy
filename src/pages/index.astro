@@ -1,14 +1,9 @@
 ---
-const posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
 import BaseLayout from "@layouts/Base.astro";
+import { sortPostsByDateInDecOrder } from "@js/postSort.js";
 
-posts.sort((post1, post2) => {
-  const timestamp1 = new Date(post1.frontmatter.date);
-  const timestamp2 = new Date(post2.frontmatter.date);
-
-  // in decreasing order of timestamp; recent date first
-  return timestamp2 - timestamp1;
-});
+let posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
+posts = sortPostsByDateInDecOrder(posts);
 ---
 <BaseLayout>
   <h1>Astro</h1>

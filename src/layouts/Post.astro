@@ -1,13 +1,9 @@
 ---
 import BaseLayout from "@layouts/Base.astro";
-const posts = await Astro.glob("../pages/posts/**/*");
-posts.sort((post1, post2) => {
-  const timestamp1 = new Date(post1.frontmatter.date);
-  const timestamp2 = new Date(post2.frontmatter.date);
+import { sortPostsByDateInDecOrder } from "@js/postSort.js";
 
-  // in decreasing order of timestamp; recent date first
-  return timestamp2 - timestamp1;
-});
+let posts = await Astro.glob("../pages/posts/**/*");
+posts = sortPostsByDateInDecOrder(posts);
 
 const { title, date } = Astro.props.frontmatter;
 const curIdx = posts.findIndex(post => post.frontmatter.date === date);
