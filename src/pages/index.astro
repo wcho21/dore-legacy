@@ -1,5 +1,6 @@
 ---
 const posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
+import BaseLayout from "../layouts/Base.astro";
 
 posts.sort((post1, post2) => {
   const timestamp1 = new Date(post1.frontmatter.date);
@@ -9,21 +10,11 @@ posts.sort((post1, post2) => {
   return timestamp2 - timestamp1;
 });
 ---
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-    <ul>
-      {posts.map(post => (
-        <li><a href={post.url}>{post.frontmatter.title}</a></li>
-      ))}
-    </ul>
-  </body>
-</html>
+<BaseLayout>
+  <h1>Astro</h1>
+  <ul>
+    {posts.map(post => (
+      <li><a href={post.url}>{post.frontmatter.title}</a></li>
+    ))}
+  </ul>
+</BaseLayout>

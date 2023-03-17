@@ -1,4 +1,5 @@
 ---
+import BaseLayout from "./Base.astro";
 const posts = await Astro.glob("../pages/posts/**/*");
 posts.sort((post1, post2) => {
   const timestamp1 = new Date(post1.frontmatter.date);
@@ -13,24 +14,14 @@ const curIdx = posts.findIndex(post => post.frontmatter.date === date);
 const prevPost = posts[curIdx-1];
 const nextPost = posts[curIdx+1];
 ---
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{ title }</title>
-  </head>
-  <body>
-    <div>
-      <h1>{ title }</h1>
-      <p>Date: { date }</p>
-      <slot />
-    </div>
-    <div>
-      { nextPost && <p>Next: <a href={nextPost.url}>{nextPost.frontmatter.title}</a></p> }
-      { prevPost && <p>Previous: <a href={prevPost.url}>{prevPost.frontmatter.title}</a></p> }
-    </div>
-  </body>
-</html>
+<BaseLayout { title }>
+  <div>
+    <h1>{ title }</h1>
+    <p>Date: { date }</p>
+    <slot />
+  </div>
+  <div>
+    { nextPost && <p>Next: <a href={nextPost.url}>{nextPost.frontmatter.title}</a></p> }
+    { prevPost && <p>Previous: <a href={prevPost.url}>{prevPost.frontmatter.title}</a></p> }
+  </div>
+</BaseLayout>
