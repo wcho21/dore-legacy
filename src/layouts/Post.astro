@@ -8,8 +8,8 @@ posts = sortPostsByDateInDecOrder(posts);
 
 const { title, date } = Astro.props.frontmatter;
 const curIdx = posts.findIndex(post => post.frontmatter.date === date);
-const prevPost = posts[curIdx-1];
-const nextPost = posts[curIdx+1];
+const prevPost = posts[curIdx+1];
+const nextPost = posts[curIdx-1];
 ---
 <BaseLayout { title }>
   <div>
