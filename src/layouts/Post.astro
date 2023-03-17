@@ -1,5 +1,5 @@
 ---
-const posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
+const { title, date } = Astro.props.frontmatter;
 ---
 
 <html lang="en">
@@ -8,14 +8,11 @@ const posts = await Astro.glob(["./posts/**/*.md", "./posts/**/*.mdx"]);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{ title }</title>
   </head>
   <body>
-    <h1>Astro</h1>
-    <ul>
-      {posts.map(post => (
-        <li><a href={post.url}>{post.frontmatter.title}</a></li>
-      ))}
-    </ul>
+    <h1>{ title }</h1>
+    <p>Date: { date }</p>
+    <slot />
   </body>
 </html>
