@@ -1,4 +1,6 @@
 ---
+import "@styles/global.css";
+
 const siteName = "wlog";
 const titleSep = "|";
 const { title } = Astro.props;
@@ -11,6 +13,14 @@ const siteTitle = title ? `${siteName} ${titleSep} ${title}` : `${siteName}`;
     <title>{ siteTitle }</title>
   </head>
   <body>
-    <slot />
+    <div class="root">
+      <slot />
+    </div>
   </body>
 </html>
+
+<style>
+  .root {
+    padding: 27px;
+  }
+</style>

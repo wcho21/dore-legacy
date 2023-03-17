@@ -14,11 +14,29 @@ const nextPost = posts[curIdx+1];
 <BaseLayout { title }>
   <div>
     <h1>{ title }</h1>
-    <p>Date: { formatDate(new Date(date)) }</p>
-    <slot />
+    <p class="date">Date: { formatDate(new Date(date)) }</p>
+    <div class="content">
+      <slot />
+    </div>
   </div>
   <div>
     { nextPost && <p>Next: <a href={nextPost.url}>{nextPost.frontmatter.title}</a></p> }
     { prevPost && <p>Previous: <a href={prevPost.url}>{prevPost.frontmatter.title}</a></p> }
   </div>
 </BaseLayout>
+
+<style>
+  h1 {
+    font-size: 18pt;
+
+    margin-bottom: 7.68pt;
+  }
+
+  .date {
+    font-size: 9.6pt;
+  }
+
+  .content {
+    margin: 18pt 0;
+  }
+</style>
