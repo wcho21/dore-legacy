@@ -1,0 +1,26 @@
+---
+import "@styles/global.css";
+
+const siteName = "wlog";
+const titleSep = "|";
+const { title } = Astro.props;
+const siteTitle = title ? `${siteName} ${titleSep} ${title}` : `${siteName}`;
+---
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{ siteTitle }</title>
+  </head>
+  <body>
+    <div class="root">
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style>
+  .root {
+    padding: 27px;
+  }
+</style>

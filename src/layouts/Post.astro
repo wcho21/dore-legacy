@@ -1,18 +1,42 @@
 ---
-const { title, date } = Astro.props.frontmatter;
----
+import BaseLayout from "@layouts/Base.astro";
+import { sortPostsByDateInDecOrder } from "@js/postSort.js";
+import { formatDate } from "@js/dateFormat.js";
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{ title }</title>
-  </head>
-  <body>
+let posts = await Astro.glob("../pages/posts/**/*");
+posts = sortPostsByDateInDecOrder(posts);
+
+const { title, date } = Astro.props.frontmatter;
+const curIdx = posts.findIndex(post => post.frontmatter.date === date);
+const prevPost = posts[curIdx+1];
+const nextPost = posts[curIdx-1];
+---
+<BaseLayout { title }>
+  <div>
     <h1>{ title }</h1>
-    <p>Date: { date }</p>
-    <slot />
-  </body>
-</html>
+    <p class="date">Date: { formatDate(new Date(date)) }</p>
+    <div class="content">
+      <slot />
+    </div>
+  </div>
+  <div>
+    { nextPost && <p>Next: <a href={nextPost.url}>{nextPost.frontmatter.title}</a></p> }
+    { prevPost && <p>Previous: <a href={prevPost.url}>{prevPost.frontmatter.title}</a></p> }
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 18pt;
+
+    margin-bottom: 7.68pt;
+  }
+
+  .date {
+    font-size: 9.6pt;
+  }
+
+  .content {
+    margin: 18pt 0;
+  }
+</style>
